@@ -16,10 +16,23 @@
 
 }
 
-.subbutton {
+.button_username {
     position: absolute;
     top: 263px;
     left: 10px;
     text-align: left;
+}
 
+.button_password {
+    position: absolute;
+    top: 287px;
+    left: 10px;
+    text-align: left;
+}
+
+.button_submit {
+    position: absolute;
+    top: 312px;
+    left: 10px;
+    text-align: left;
 }
