@@ -5,11 +5,29 @@
     <title>Chat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
-<body>
+<body style="border: aqua">
 
     <div class="header">
-        <h1>Chat Room 1</h1>
-        <p>My supercool header</p>
+        <h1>iChat</h1>
+    </div>
+
+    <div class="header2">
+        <h2>Register here</h2>
+    </div>
+
+    <div class="button_username">
+        <form action="/user" method="POST">
+            <input type="text" name="Username" placeholder="Enter Username" />
+        </form>
+    </div>
+    <div class="button_password">
+        <form action="/user" method="POST">
+            <input type="text" name="Password" placeholder="Enter Password" />
+            <br/>
+        </form>
+    </div>
+    <div class="button_submit">
+        <input type="submit" value="Submit" >
     </div>
 
 </body>
