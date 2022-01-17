@@ -5,7 +5,7 @@
     <title>Chat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
-<body style="border: aqua">
+<body class="page" style="border: aqua">
 
     <div class="header">
         <h1>iChat</h1>
@@ -14,21 +14,40 @@
     <div class="header2">
         <h2>Register here</h2>
     </div>
+    <div class="header_pw">
+        <p>
+            Show password
+        </p>
+    </div>
 
     <div class="button_username">
-        <form action="/user" method="POST">
-            <input type="text" name="Username" placeholder="Enter Username" />
+        <form method="POST">
+            <input type="text" name="Username" placeholder="Username"/>
         </form>
     </div>
     <div class="button_password">
-        <form action="/user" method="POST">
-            <input type="text" name="Password" placeholder="Enter Password" />
+        <form method="POST">
+            <input type="password" id="passFunc" name="Password" placeholder="Password" />
             <br/>
         </form>
     </div>
     <div class="button_submit">
         <input type="submit" value="Submit" >
     </div>
+    <div class="toggle_show_password">
+        <input type="checkbox" onclick="toggle_Password()">
+    </div>
+
+    <script>
+        function toggle_Password() {
+            var x = document.getElementById("passFunc");
+            if (x.type === "password") {
+                x.type = "text";
+            }else {
+                x.type = "password";
+            }
+        }
+    </script>
 
 </body>
 </html>

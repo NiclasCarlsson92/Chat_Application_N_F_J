@@ -1,5 +1,5 @@
 .header {
-    padding: 77px;
+    padding: 76px;
     text-align: left;
     background: #1abc9c;
     color: white;
@@ -10,29 +10,48 @@
     font-size: 15px;
     position: absolute;
     top: 215px;
-    left: 10px;
+    left: 8px;
     color: white;
     text-align: left;
-
 }
 
 .button_username {
     position: absolute;
     top: 263px;
-    left: 10px;
+    left: 8px;
     text-align: left;
 }
 
 .button_password {
     position: absolute;
-    top: 287px;
-    left: 10px;
+    top: 288px;
+    left: 8px;
     text-align: left;
 }
 
 .button_submit {
     position: absolute;
-    top: 312px;
-    left: 10px;
+    top: 314px;
+    left: 8px;
     text-align: left;
+}
+
+.page {
+    background-color: #073B4C;
+}
+
+.toggle_show_password {
+    position: absolute;
+    top: 314px;
+    left: 175px;
+}
+
+.header_pw {
+    font-size: 10px;
+    position: absolute;
+    top: 309px;
+    left: 100px;
+    color: white;
+    text-align: left;
+
 }
