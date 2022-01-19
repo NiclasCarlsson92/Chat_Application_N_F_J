@@ -6,3 +6,11 @@ bp_signup = Blueprint('bp_signup', __name__)
 @bp_signup.get('/signup')
 def signup_get():
     return render_template('signup.html')
+
+
+@bp_signup.post('/signup')
+def signup_post():
+    email = request.form.get('email')
+    password = request.form['password']
+
+    return redirect(url_for('bp_login.login_get'))

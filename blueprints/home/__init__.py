@@ -4,5 +4,5 @@ bp_home = Blueprint('bp_home', __name__)
 
 
 @bp_home.get('/')
-def home():
+def home_get():
     return render_template('home.html')

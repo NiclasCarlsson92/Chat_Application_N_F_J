@@ -1,38 +1,48 @@
-.header {
+.header_iChat_home {
+    padding: 76px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 4px #073B4C;
+}
+.header_iChat_signup {
     padding: 76px;
     text-align: left;
     background: #1abc9c;
     color: white;
     font-size: 30px;
+    text-shadow: 2px 2px 4px #073B4C;
 }
 
-.header2 {
+.register_here {
     font-size: 15px;
     position: absolute;
     top: 215px;
-    left: 8px;
+    left: 10px;
     color: white;
     text-align: left;
+    text-shadow: 2px 2px 4px #073B4C;
 }
 
 .button_username {
     position: absolute;
-    top: 263px;
-    left: 8px;
+    top: 265px;
+    left: 10px;
     text-align: left;
 }
 
 .button_password {
     position: absolute;
-    top: 288px;
-    left: 8px;
+    top: 287px;
+    left: 10px;
     text-align: left;
 }
 
 .button_submit {
     position: absolute;
     top: 314px;
-    left: 8px;
+    left: 10px;
     text-align: left;
 }
 
@@ -55,3 +65,31 @@
     text-align: left;
 
 }
+
+.tab_register {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    position: absolute;
+}
+
+.tab_home {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 8px;
+    position: absolute;
+}
+
+/*.body_background_home {*/
+/*    background-color: #073B4C;*/
+
+/*}*/

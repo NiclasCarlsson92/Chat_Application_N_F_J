@@ -5,43 +5,52 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header">
+    <div class="header_iChat_signup">
         <h1>iChat</h1>
     </div>
 
-
-    <div class="header2">
-        <h2>Register here</h2>
+    <a class="tab_home" href="{{ url_for('bp_home.home_get') }}">
+        Home
+    </a>
+    <div class="register_here">
+        <h2>
+           Register here
+        </h2>
     </div>
-
     <div class="header_pw">
         <p>
             Show password
         </p>
     </div>
-
     <div class="button_username">
         <form method="POST">
-            <input type="text" name="Username" placeholder="Username"/>
+            <input type="text" name="Username" placeholder="Email"/>
         </form>
     </div>
-
     <div class="button_password">
         <form method="POST">
             <input type="password" id="passFunc" name="Password" placeholder="Password" />
             <br/>
         </form>
     </div>
-
     <div class="button_submit">
         <input type="submit" value="Submit" >
     </div>
-
     <div class="toggle_show_password">
         <input type="checkbox" onclick="toggle_Password()">
     </div>
+    <script>
+        function toggle_Password() {
+        var x = document.getElementById("passFunc");
+        if (x.type === "password") {
+            x.type = "text";
+        }else {
+            x.type = "password";
+        }
+        }
+    </script>
 {% endblock %}
 
-{% block scripts %}
-    <script>src="{{ url_for('static', filename='js/source.js') }}</script>
-{% endblock %}
+{#{% block scripts %}#}
+{#    <script>src="{{ url_for('static', filename='js/source.js') }}</script>#}
+{#{% endblock %}#}
