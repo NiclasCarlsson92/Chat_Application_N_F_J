@@ -13,4 +13,5 @@ def signup_post():
     email = request.form.get('email')
     password = request.form['password']
 
-    return redirect(url_for('bp_login.login_get'))
+    return redirect(url_for('bp_home.home_get'))
+# Ska peka mot sidan för en lyckad inlogging
