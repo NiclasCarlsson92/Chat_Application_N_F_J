@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% block endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
 <body class="page" style="border: aqua">
+
     {% block content %}
     {% endblock %}
 
     {% block scripts %}
     {% endblock %}
+
 </body>
 </html>
