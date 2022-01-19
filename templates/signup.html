@@ -1,0 +1,47 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+   iChat
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>iChat</h1>
+    </div>
+
+
+    <div class="header2">
+        <h2>Register here</h2>
+    </div>
+
+    <div class="header_pw">
+        <p>
+            Show password
+        </p>
+    </div>
+
+    <div class="button_username">
+        <form method="POST">
+            <input type="text" name="Username" placeholder="Username"/>
+        </form>
+    </div>
+
+    <div class="button_password">
+        <form method="POST">
+            <input type="password" id="passFunc" name="Password" placeholder="Password" />
+            <br/>
+        </form>
+    </div>
+
+    <div class="button_submit">
+        <input type="submit" value="Submit" >
+    </div>
+
+    <div class="toggle_show_password">
+        <input type="checkbox" onclick="toggle_Password()">
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>src="{{ url_for('static', filename='js/source.js') }}</script>
+{% endblock %}

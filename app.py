@@ -1,12 +1,13 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
 
+def create_app():
+    app = Flask(__name__)
 
-@app.route('/')
-def homepage():
-    return render_template('base-template.html')
+    from blueprints.home import bp_home
+    app.register_blueprint(bp_home)
 
+    from blueprints.signup import bp_signup
+    app.register_blueprint(bp_signup)
 
-if __name__ == "__main__":
-    app.run()
+    return app
