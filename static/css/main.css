@@ -31,14 +31,19 @@
     text-align: left;
 }
 
-.button_submit {
+.button_repeatpassword {
     position: absolute;
-    top: 314px;
+    top: 331px;
     left: 10px;
     text-align: left;
 }
 
-
+.button_submit {
+    position: absolute;
+    top: 355px;
+    left: 10px;
+    text-align: left;
+}
 
 .page{
     width: 95%;
@@ -51,17 +56,25 @@
 .toggle_show_password {
     position: absolute;
     top: 314px;
-    left: 175px;
+    left: 180px;
+}
+
+.toggle_show_repeatpassword {
+    position: absolute;
+    top: 337px;
+    left: 180px;
 }
 
 .header_pw {
     font-size: 10px;
     position: absolute;
-    top: 309px;
-    left: 100px;
+    top: 345px;
+    left: 130px;
     color: white;
     text-align: left;
 }
+
+
 
 .tab_register {
     margin: 5px;
