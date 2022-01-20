@@ -20,12 +20,14 @@
             Show password
         </p>
     </div>
+
     <form method="POST">
         <input class="button_email" type="text" name="email" placeholder="Email"/>
         <input class="button_username" type="text" name="username" placeholder="Username"/>
         <input class="button_password" type="password" id="passFunc" name="password" placeholder="Password" />
+        <input class="button_repeatpassword" type="password" id="passFunc" name="repeatpassword" placeholder="Repeat password" />
         <input class="button_submit" type="submit" value="Submit" >
-        <input class="toggle_show_password" type="checkbox" onclick="toggle_Password()">
+
     </form>
     <script>
         function toggle_Password() {
@@ -34,6 +36,14 @@
             x.type = "text";
         }else {
             x.type = "password";
+        }
+        }
+          function toggle_RepeatPassword() {
+        var x = document.getElementById("passFunc");
+        if (x.type === "repeatpassword") {
+            x.type = "text";
+        }else {
+            x.type = "repeatpassword";
         }
         }
     </script>
