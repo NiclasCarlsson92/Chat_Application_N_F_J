@@ -99,6 +99,15 @@
     position: absolute;
 }
 
+.home_block1{
+    background-color: #073B4C;
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+}
+
 /*.body_background_home {*/
 /*    background-color: #073B4C;*/
 
