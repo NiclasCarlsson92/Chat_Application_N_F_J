@@ -1,0 +1,26 @@
+[1mdiff --git a/app.py b/app.py[m
+[1mindex 9aee841..6ccf28a 100644[m
+[1m--- a/app.py[m
+[1m+++ b/app.py[m
+[36m@@ -1,7 +1,7 @@[m
+ from flask import Flask[m
+[31m-from flask_sqlalchemy import SQLalchemy[m
+[32m+[m[32mfrom flask_sqlalchemy import SQLAlchemy[m
+ [m
+[31m-db = SQLalchemy()[m
+[32m+[m[32mdb = SQLAlchemy()[m
+ [m
+ [m
+ def create_app():[m
+[1mdiff --git a/models.py b/models.py[m
+[1mindex 6a54ea5..64a42e8 100644[m
+[1m--- a/models.py[m
+[1m+++ b/models.py[m
+[36m@@ -4,7 +4,6 @@[m [mfrom app import db[m
+ # Primary key to identify a unique....[m
+ class User(db.Model):[m
+     id = db.Column(db.Integer, primary_key=True, autoincrement=True)[m
+[31m-    name = db.Column(db.String(150))[m
+     email = db.Column(db.String(150), unique=True)[m
+     password = db.Column(db.String(100))[m
+     admin = db.Column(db.BOOLEAN, default=False)[m
