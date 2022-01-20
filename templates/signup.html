@@ -6,22 +6,13 @@
 
 {% block content %}
 
-
-    <a class="tab_home" href="{{ url_for('bp_home.home_get') }}">
-        Home
-    </a>
     <div class="register_here">
         <h2>
            Register here
         </h2>
     </div>
-    <div class="header_pw">
-        <p>
-            Show password
-        </p>
-    </div>
 
-    <form method="POST">
+    <form action="{{ url_for('bp_signup.signup_post') }}" method="POST">
         <input class="button_email" type="text" name="email" placeholder="Email"/>
         <input class="button_username" type="text" name="username" placeholder="Username"/>
         <input class="button_password" type="password" id="passFunc" name="password" placeholder="Password" />
@@ -48,7 +39,3 @@
         }
     </script>
 {% endblock %}
-
-{#{% block scripts %}#}
-{#    <script>src="{{ url_for('static', filename='js/source.js') }}</script>#}
-{#{% endblock %}#}
