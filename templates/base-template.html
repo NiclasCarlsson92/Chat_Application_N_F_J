@@ -4,8 +4,28 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+
 </head>
 <body class="page" style="border: aqua">
+
+    <a class="tab_home" href="{{ url_for('bp_home.home_get') }}">
+        Home
+    </a>
+    {% if current_user.is_authenticated %}
+        <a class="tab_profile" href="{{ url_for('bp_user.user_get') }}">
+            Profile
+        </a>
+        <a class="tab_logout" href="{{ url_for('bp_user.logout_get') }}">
+            Log Out
+        </a>
+    {% else %}
+        <a class="tab_signin" href="{{ url_for('bp_signin.signin_get') }}">
+            Sign In
+        </a>
+        <a class="tab_register" href="{{ url_for('bp_signup.signup_get') }}">
+            Register
+        </a>
+        {% endif %}
 
     {% block content %}
     {% endblock %}

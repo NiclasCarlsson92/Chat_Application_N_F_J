@@ -85,6 +85,7 @@
     border-radius: 5px;
     top: 8px;
     position: absolute;
+    left: 60px;
 }
 
 .tab_home {
@@ -96,6 +97,30 @@
     border-radius: 5px;
     top: 8px;
     left: 8px;
+    position: absolute;
+}
+
+.tab_signin {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 125px;
+    position: absolute;
+}
+
+.tab_logout {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 200px;
     position: absolute;
 }
 
