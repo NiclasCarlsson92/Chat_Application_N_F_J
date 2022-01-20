@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header_iChat_signup">
-        <h1>iChat</h1>
-    </div>
+
 
     <a class="tab_home" href="{{ url_for('bp_home.home_get') }}">
         Home
@@ -24,6 +22,7 @@
     </div>
     <form method="POST">
         <input class="button_email" type="text" name="email" placeholder="Email"/>
+        <input class="button_username" type="text" name="username" placeholder="Username"/>
         <input class="button_password" type="password" id="passFunc" name="password" placeholder="Password" />
         <input class="button_submit" type="submit" value="Submit" >
         <input class="toggle_show_password" type="checkbox" onclick="toggle_Password()">
