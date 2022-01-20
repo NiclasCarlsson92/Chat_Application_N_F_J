@@ -22,4 +22,8 @@ def create_app():
     from blueprints.signup import bp_signup
     app.register_blueprint(bp_signup)
 
+    # Login blueprint
+    from blueprints.login import bp_login
+    app.register_blueprint(bp_login)
+
     return app
