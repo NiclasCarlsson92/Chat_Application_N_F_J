@@ -120,7 +120,7 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 200px;
+    left: 114px;
     position: absolute;
 }
 
@@ -132,8 +132,12 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 300px;
+    left: 60px;
     position: absolute;
+}
+.notification {
+    text-align: center;
+    font-size: 72px;
 }
 
 /*.body_background_home {*/

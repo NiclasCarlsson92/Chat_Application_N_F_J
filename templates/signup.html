@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification">
+                {{ messages[0] }}.
+            </div>
+        {% endif %}
+    {% endwith %}
     <div class="register_here">
         <h2>
            Register here

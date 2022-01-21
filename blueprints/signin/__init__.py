@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user
 
-bp_signin = Blueprint('bp_signin', __name__)
-
 from models import User
+from passlib.hash import argon2
+
+bp_signin = Blueprint('bp_signin', __name__)
 
 
 @bp_signin.get('/login')
@@ -20,6 +21,11 @@ def signin_post():
         flash('Wrong email or password')
         redirect(url_for('bp_signin.signin_get'))
 
+    if not argon2.verify(password, user.password):
+        flash('Wrong email or password')
+        redirect(url_for('bp_signin.signin_get'))
+
     login_user(user)
+
     return redirect(url_for('bp_dashboard.dashboard_get'))
 
