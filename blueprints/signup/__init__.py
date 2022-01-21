@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-
-from werkzeug.security import generate_password_hash
+from flask_login import login_user
+from passlib.hash import argon2
 
 bp_signup = Blueprint('bp_signup', __name__)
 
@@ -16,7 +16,7 @@ def signup_get():
 def signup_post():
     email = request.form.get('email')
     password = request.form['password']
-    hashed_password = generate_password_hash(password, method='sha256')
+    hashed_password = argon2.using(rounds=10).hash(password)
 
     user = User.query.filter_by(email=email).first()
     if user:
@@ -24,9 +24,11 @@ def signup_post():
         return redirect(url_for('bp_signup.signup_get'))
 
     new_user = User(email=email, password=hashed_password)
+
     from app import db
     db.session.add(new_user)
     db.session.commit()
 
+    login_user(new_user)
+
     return redirect(url_for('bp_dashboard.dashboard_get'))
-# Ska peka mot sidan för en lyckad inlogging
