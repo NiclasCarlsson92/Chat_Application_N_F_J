@@ -19,11 +19,11 @@
             Log Out
         </a>
     {% else %}
+        <a class="tab_register" href="{{ url_for('bp_signup.signup_get') }}">
+            Sign Up
+        </a>
         <a class="tab_signin" href="{{ url_for('bp_signin.signin_get') }}">
             Sign In
-        </a>
-        <a class="tab_register" href="{{ url_for('bp_signup.signup_get') }}">
-            Register
         </a>
         {% endif %}
 

@@ -124,6 +124,18 @@
     position: absolute;
 }
 
+.tab_profile {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 300px;
+    position: absolute;
+}
+
 /*.body_background_home {*/
 /*    background-color: #073B4C;*/
 
