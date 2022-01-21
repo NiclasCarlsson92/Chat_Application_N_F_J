@@ -1,9 +1,16 @@
 {% extends "base-template.html" %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification">
+                {{ messages[0] }}.
+            </div>
+        {% endif %}
+    {% endwith %}
     <form action="{{ url_for('bp_signin.signin_post') }}" method="POST">
         <input class="button_email" type="text" name="email" placeholder="Email"/>
         <input class="button_password" type="password" id="passFunc" name="password" placeholder="Password" />
-        <input class="button_submit" type="submit" value="Submit" >
+        <input class="button_submit" type="submit" value="Sign In" >
     </form>
 {% endblock %}

@@ -32,6 +32,9 @@ def create_app():
     from blueprints.signin import bp_signin
     app.register_blueprint(bp_signin)
 
+    from blueprints.user import bp_user
+    app.register_blueprint(bp_user)
+
     from blueprints.dashboard import bp_dashboard
     app.register_blueprint(bp_dashboard)
 
