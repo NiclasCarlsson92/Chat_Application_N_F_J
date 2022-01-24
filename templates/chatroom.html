@@ -1,0 +1,12 @@
+{% extends 'base-template.html' %}
+{% block content %}
+    <div class="chat_window">
+        <h2>iChat</h2>
+        <h2> Room: {{ session['room'] }}</h2><br>
+        <textarea id="chat" cols="70" rows="10" placeholder="No messages yet.."></textarea><br><br>
+        <input type="text" id="text" size="60" placeholder="Enter your message here">
+        <button type="button" id="send">SEND</button><br><br>
+        <button type="button" id="leave">Leave Chat</button>
+
+    </div>
+{% endblock %}
