@@ -3,4 +3,8 @@
 {% block content %}
     <h1>You are logged in!</h1>
     <h1>This is the dashboard :)</h1>
+
+    <form action="{{ url_for('bp_chatroom.chatroom_post') }}" method="POST">
+        <input type="submit">Enter Chat</input>
+    </form>
 {% endblock %}

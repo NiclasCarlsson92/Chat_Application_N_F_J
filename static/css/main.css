@@ -120,7 +120,7 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 114px;
+    left: 198px;
     position: absolute;
 }
 
@@ -135,6 +135,19 @@
     left: 60px;
     position: absolute;
 }
+
+.tab_dashboard {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 115px;
+    position: absolute;
+}
+
 .notification {
     text-align: center;
     font-size: 72px;

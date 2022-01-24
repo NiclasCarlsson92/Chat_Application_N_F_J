@@ -38,4 +38,7 @@ def create_app():
     from blueprints.dashboard import bp_dashboard
     app.register_blueprint(bp_dashboard)
 
+    from blueprints.chatroom import bp_chatroom
+    app.register_blueprint(bp_chatroom)
+
     return app
