@@ -14,6 +14,7 @@ def signup_get():
 
 @bp_signup.post('/signup')
 def signup_post():
+    name = request.form['username']
     email = request.form.get('email')
     password = request.form['password']
     hashed_password = argon2.using(rounds=10).hash(password)
@@ -23,12 +24,11 @@ def signup_post():
         flash("Email address is already in use")
         return redirect(url_for('bp_signup.signup_get'))
 
-    new_user = User(email=email, password=hashed_password)
+    new_user = User(name=name, email=email, password=hashed_password)
 
     from app import db
     db.session.add(new_user)
     db.session.commit()
-
     login_user(new_user)
 
     return redirect(url_for('bp_dashboard.dashboard_get'))

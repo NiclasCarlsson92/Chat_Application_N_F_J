@@ -26,22 +26,4 @@
         <input class="button_submit" type="submit" value="Submit" >
 
     </form>
-    <script>
-        function toggle_Password() {
-        var x = document.getElementById("passFunc");
-        if (x.type === "password") {
-            x.type = "text";
-        }else {
-            x.type = "password";
-        }
-        }
-          function toggle_RepeatPassword() {
-        var x = document.getElementById("passFunc");
-        if (x.type === "repeatpassword") {
-            x.type = "text";
-        }else {
-            x.type = "repeatpassword";
-        }
-        }
-    </script>
 {% endblock %}

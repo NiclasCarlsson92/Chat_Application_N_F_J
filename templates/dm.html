@@ -1,5 +1,21 @@
 {% extends 'base-template.html' %}
 
 {% block content %}
-
+    <br>
+    <br>
+    <br>
+        <table>
+        <tr>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Online</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.online }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

@@ -27,6 +27,7 @@ def signin_post():
 
     login_user(user)
     user.online = True
+
     from app import db
     db.session.add(user)
     db.session.commit()

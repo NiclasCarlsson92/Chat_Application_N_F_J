@@ -165,6 +165,10 @@
     font-size: 72px;
 }
 
+table {
+    width: 25%;
+}
+
 /*.body_background_home {*/
 /*    background-color: #073B4C;*/
 
