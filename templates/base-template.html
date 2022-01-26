@@ -21,6 +21,9 @@
         <a class="tab_dashboard" href="{{ url_for('bp_dashboard.dashboard_get') }}">
             Dashboard
         </a>
+        <a class="tab_dm" href="{{ url_for('bp_dm.dm_get') }}">
+            DM
+        </a>
     {% else %}
         <a class="tab_register" href="{{ url_for('bp_signup.signup_get') }}">
             Sign Up

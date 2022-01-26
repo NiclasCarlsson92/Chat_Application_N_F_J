@@ -1,3 +1,4 @@
+import dotenv
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -9,6 +10,8 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = '123secret'
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
@@ -40,4 +43,13 @@ def create_app():
     from blueprints.chatroom import bp_chatroom
     app.register_blueprint(bp_chatroom)
 
+    from blueprints.dm import bp_dm
+    app.register_blueprint(bp_dm)
+
     return app
+
+
+if __name__ == '__main__':
+    dotenv.load_dotenv()
+    app = create_app()
+    app.run()

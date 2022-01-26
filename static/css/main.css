@@ -120,7 +120,7 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 198px;
+    left: 239px;
     position: absolute;
 }
 
@@ -145,6 +145,18 @@
     border-radius: 5px;
     top: 8px;
     left: 115px;
+    position: absolute;
+}
+
+.tab_dm {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 198px;
     position: absolute;
 }
 
