@@ -1,0 +1,13 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Send a Message
+{% endblock %}
+
+{% block content %}
+    <h1>Sending a message to {{ reciver.name }}</h1>
+    <form action="{{ url_for("bp_open.message_post") }}" method="POST">
+
+    </form>
+
+{% endblock %}
