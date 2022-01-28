@@ -167,6 +167,43 @@
 
 table {
     width: 25%;
+    background: antiquewhite;
+}
+
+th {
+    background: darkcyan;
+}
+
+tr:nth-child(odd){
+    background: cornflowerblue;
+}
+
+tr:nth-child(even){
+    background: dodgerblue;
+}
+
+.center-content{
+    text-align: center;
+}
+
+.circle{
+    margin: 0 auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.online{
+    background: limegreen;
+}
+
+.offline{
+    background: darkgrey;
+}
+
+table{
+    width: 75%;
+
 }
 
 /*.body_background_home {*/

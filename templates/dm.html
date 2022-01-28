@@ -12,10 +12,19 @@
         </tr>
         {% for user in users %}
             <tr>
-                <td>{{ user.name }}</td>
+                <td><a href="{{ url_for("bp_user.message_get", user_id=user.id) }}">{{ user.name }}</a></td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.online }}</td>
+                <td class="center-content">
+                    {% if user.online %}
+                        <div class="circle online"></div>
+                    {% else %}
+                        <div class="circle offline"></div>
+                    {% endif %}
+
+
+                </td>
             </tr>
         {% endfor %}
     </table>
+
 {% endblock %}

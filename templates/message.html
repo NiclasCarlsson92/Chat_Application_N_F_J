@@ -1,0 +1,17 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Send a Message
+{% endblock %}
+
+{% block content %}
+    <h1>Sending a message to {{ receiver.name }}</h1>
+    <form action="{{ url_for("bp_user.message_post") }}" method="POST">
+        <input type="text" name="title" placeholder="Message title"/> <br />
+        <input type="hidden" name="user_id" value="{{ receiver.id }}">
+        <textarea name ="body" placeholder="Message Body"></textarea> <br />
+        <input class="send-button" type="submit" value="Send" />
+
+    </form>
+
+{% endblock %}

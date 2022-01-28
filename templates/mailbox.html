@@ -1,0 +1,34 @@
+{% extends 'base-template.html' %}
+
+{% block title %}
+    Mailbox for {{ current_user.name }}
+{% endblock %}
+
+{% block content %}
+    <h1> id ="main-heading">Mailbox</h1>
+
+    <table>
+        <tr>
+            <th>Sender</th>
+            <th>Sent</th>
+            <th>Title</th>
+            <th>Message Body</th>
+        </tr>
+    {% for message in messages %}
+        <tr>
+            <td>{{ message.sender.name }}</td>
+            {%  if message.sent_time is not none %}
+                <td>{{ message.sent_time.year }}-{{ message.sent_time.month }}-{{ message.sent_time.day }}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+
+            <td>{{ message.title }}</td>
+            <td>{{ message.body }}</td>
+
+        </tr>
+    {% endfor %}
+    </table>
+
+
+{% endblock %}
