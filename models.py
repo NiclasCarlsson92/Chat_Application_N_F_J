@@ -31,9 +31,10 @@ class User(db.Model):
     def get_id(self):
         return self.id
 
-    class Message(db.Model):
-        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-        title = db.Column(db.String(250))
-        body = db.Column(db.Text)
-        sent_time = db.Column(db.DateTime, default=datetime.datetime.now())
-        sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(250))
+    body = db.Column(db.Text)
+    sent_time = db.Column(db.DateTime, default=datetime.datetime.now())
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

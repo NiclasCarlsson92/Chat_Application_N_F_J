@@ -201,6 +201,11 @@ tr:nth-child(even){
     background: darkgrey;
 }
 
+table{
+    width: 75%;
+
+}
+
 /*.body_background_home {*/
 /*    background-color: #073B4C;*/
 

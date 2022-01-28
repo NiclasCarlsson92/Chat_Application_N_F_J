@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import logout_user, login_required, current_user
 
+from controllers.message_controller import create_message, get_user_messages
 from controllers.user_controller import get_user_by_id
 
 bp_user = Blueprint('bp_user', __name__)
@@ -26,5 +27,20 @@ def logout_get():
 @bp_user.get("/message/<user_id>")
 def message_get(user_id):
     user_id = int(user_id)
-    reciver = get_user_by_id(user_id)
-    return render_template("message.html", reciver=reciver)
+    receiver = get_user_by_id(user_id)
+    return render_template("message.html", receiver=receiver)
+
+
+@bp_user.post("/message")
+def message_post():
+    title = request.form["title"]
+    body = request.form["body"]
+    receiver_id = request.form["user_id"]
+    create_message(title, body, receiver_id)
+    return redirect(url_for("bp_user.user_get"))
+
+
+@bp_user.get("/mailbox")
+def mailbox_get():
+    messages = get_user_messages()
+    return render_template("mailbox.html", messages=messages)
