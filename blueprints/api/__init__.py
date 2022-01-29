@@ -19,7 +19,7 @@ def get_all_users():
             'Result': 'Api Key Error',
             'Reason': 'No or Wrong api key provided.'
         }
-        return Response(json.dumps(respone), 401)
+        return Response(json.dumps(respone), 401, content_type='application/json')
     users = user_controller.get_all_users()
     cleaned_users = []
     for user in users:
