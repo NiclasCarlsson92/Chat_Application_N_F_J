@@ -6,6 +6,7 @@ def get_all_but_current_users():
     user = current_user
     return User.query.filter(User.id != user.id).all()
 
+
 def get_all_users():
     from models import User
     return User.query.all()
