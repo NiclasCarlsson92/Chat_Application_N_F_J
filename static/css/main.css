@@ -100,6 +100,19 @@
     position: absolute;
 }
 
+.tab_mailbox{
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    background-color: #073B4C;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8px;
+    left: 236px;
+    position: absolute;
+
+}
+
 .tab_signin {
     margin: 5px;
     color: white;
@@ -120,7 +133,7 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 239px;
+    left: 302px;
     position: absolute;
 }
 
@@ -144,7 +157,7 @@
     padding: 5px;
     border-radius: 5px;
     top: 8px;
-    left: 115px;
+    left: 116px;
     position: absolute;
 }
 
