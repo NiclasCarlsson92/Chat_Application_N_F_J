@@ -47,7 +47,7 @@ def create_app():
     app.register_blueprint(bp_dm)
 
     from blueprints.api import bp_api
-    app.register_blueprint(bp_api, url_prefix='/api/v1.0')
+    app.register_blueprint(bp_api, url_prefix='/api/v1.0') # Ska alltid ha /api/version prefix
 
     return app
 
