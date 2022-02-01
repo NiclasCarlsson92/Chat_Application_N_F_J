@@ -50,6 +50,9 @@ def create_app():
     from blueprints.api import bp_api
     app.register_blueprint(bp_api, url_prefix='/api/v1.0') # Ska alltid ha /api/version prefix
 
+    from blueprints.admin import bp_admin
+    app.register_blueprint(bp_admin)
+
     return app
 
 
