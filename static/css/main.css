@@ -173,6 +173,31 @@
     position: absolute;
 }
 
+.Move_profile_text{
+    margin: 50px;
+    color: black;
+    padding: 5px;
+    top: 50px;
+    left: 460px;
+    position: absolute;
+    font-size: 70px;
+    border-radius: 500px;
+    background-color: white;
+}
+
+.Move_profile_user{
+    margin: 50px;
+    color: black;
+    padding: 5px;
+    top: 200px;
+    left: 650px;
+    position: absolute;
+    font-size: 50px;
+    border-radius: 500px;
+    background-color: white;
+}
+
+
 .notification {
     text-align: center;
     font-size: 72px;

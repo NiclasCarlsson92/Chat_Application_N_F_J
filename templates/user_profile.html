@@ -1,5 +1,21 @@
 {% extends 'base-template.html' %}
 
 {% block content %}
-    <br><br><h1>THIS IS YOUR PROFILE PAGE LUL</h1>
+
+
+
+    <body>
+        <section class="Move_profile_text">
+            <div>Welcome to your profile page</div>
+        </section>
+
+    <section class="Move_profile_user">
+            <div>Your username is {{ current_user.name }}!</div>
+        </section>
+
+    </body>
+
+
+
 {% endblock %}
+
