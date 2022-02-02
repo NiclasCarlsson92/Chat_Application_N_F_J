@@ -26,6 +26,6 @@ def get_unread_msg_count():
 
     for msg in user.recv_messages:
         if not msg.read:
-            msg.count += 1
+            msg_count += 1
 
     return msg_count
