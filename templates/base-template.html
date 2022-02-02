@@ -34,10 +34,12 @@
             DM
         </a>
 
+        <div class="mailbox_icon">
         <a href="{{ url_for("bp_user.mailbox_get") }}">
             <i class="fa fa-fw fa-envelope-open no-new-msg" id="message-symbol"></i>
                 <span class="sup" id="message-count"> </span>
         </a>
+        </div>
 
     {% else %}
         <a class="tab_register" href="{{ url_for('bp_signup.signup_get') }}">
