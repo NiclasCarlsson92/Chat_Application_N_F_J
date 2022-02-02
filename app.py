@@ -53,6 +53,9 @@ def create_app():
     from blueprints.admin import bp_admin
     app.register_blueprint(bp_admin)
 
+    from blueprints.ajax import bp_ajax
+    app.register_blueprint(bp_ajax)
+
     return app
 
 
