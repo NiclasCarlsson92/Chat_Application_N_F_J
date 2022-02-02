@@ -1,3 +1,4 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 
 .register_here {
@@ -241,8 +242,24 @@ tr:nth-child(even){
 
 table{
     width: 75%;
-
 }
+
+/*.sup{*/
+/*    position: relative;*/
+/*    bottom: 1ex;*/
+/*    font-size: 80%;*/
+/*    color: black;*/
+/*}*/
+
+/*.no-new-msg{*/
+/*    color: rgba(54, 54, 54, 0.7);*/
+/*}*/
+
+/*.new-msg{*/
+/*    color: lime;*/
+/*}*/
+
+
 
 /*.body_background_home {*/
 /*    background-color: #073B4C;*/
