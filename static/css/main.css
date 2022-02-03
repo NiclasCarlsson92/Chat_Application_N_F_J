@@ -1,6 +1,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 
+
 .register_here {
     font-size: 15px;
     position: absolute;
@@ -175,29 +176,13 @@
 }
 
 .Move_profile_text{
-    margin: 50px;
-    color: black;
-    padding: 5px;
-    top: 50px;
-    left: 460px;
-    position: absolute;
-    font-size: 70px;
-    border-radius: 500px;
-    background-color: white;
+    position: relative;
+    top: 40px;
+    color: lightskyblue;
+    font-size: 60px;
+    border-radius: 10px;
+    background-color: #073B4C;
 }
-
-.Move_profile_user{
-    margin: 50px;
-    color: black;
-    padding: 5px;
-    top: 200px;
-    left: 650px;
-    position: absolute;
-    font-size: 50px;
-    border-radius: 500px;
-    background-color: white;
-}
-
 
 .notification {
     text-align: center;
@@ -252,22 +237,31 @@ table{
 }
 
 .no-new-msg{
-    color: rgba(54, 54, 54, 0.7);
+    color: rgba(5, 100, 250, 1);
 }
 
 .new-msg{
-    color: lime;
+    color: rgba(5, 100, 250, 1);
 }
 
+.Move_TextMailbox{
+    color: lightskyblue;
+    font-size: 40px;
+    border-radius: 10px;
+    background-color: #073B4C;
 
-
-/*.body_background_home {*/
-/*    background-color: #073B4C;*/
-
-/*}*/
+}
 
 .mailbox_icon{
     position: absolute;
-    left: 400px;
-    top: 25px;
+    left: 380px;
+    top: 12px;
 }
+
+.Dash_text1{
+    color: lightskyblue;
+    font-size: 40px;
+    border-radius: 10px;
+    background-color: #073B4C;
+}
+
