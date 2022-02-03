@@ -37,7 +37,7 @@
         <div class="mailbox_icon">
         <a href="{{ url_for("bp_user.mailbox_get") }}">
             <i class="fa fa-fw fa-envelope-open no-new-msg" id="message-symbol"></i>
-                <span class="sup" id="message-count"> </span>
+                <span class="sup" id="message-count"></span>
         </a>
         </div>
 
@@ -62,26 +62,22 @@
 
         function checkMessages() {
             fetch("http://127.0.0.1:5000/get_message_count")
-            .then(response => response.json())
-            .then(msgCount => {
-                let messageSymbol = document.getElementById("message-symbol")
-                let messageCount = document.getElementById("message-count")
-                if(msgCount.unreadMessageCount === 0){
-                    messageSymbol.classList.remove("fa.envelope");
-                    messageSymbol.classList.add("fa.envelope-open");
-                    messageSymbol.classList.remove("new-msg");
-                    messageSymbol.classList.add("no-new-msg");
-                    messageCount.innerHTML ="";
-                }
-                else {
-                    messageSymbol.classList.remove("fa.envelope-open");
-                    messageSymbol.classList.add("fa.envelope");
-                    messageSymbol.classList.remove("no-new-msg");
-                    messageSymbol.classList.add("new-msg");
-                    messageCount.innerHTML =msgCount.unreadMessageCount;
-                }
-            });
-        }
+                .then(response => response.json())
+                .then(msgCount => {
+                    let messageSymbol = document.getElementById("message-symbol")
+                    let messageCount = document.getElementById("message-count")
+                    if(msgCount.unreadMessageCount === 0){
+                        messageSymbol.classList.remove("fa-envelope");
+                        messageSymbol.classList.add("fa-envelope-open");
+                        messageCount.innerHTML ="";
+                    }
+                    else {
+                        messageSymbol.classList.remove("fa-envelope-open");
+                        messageSymbol.classList.add("fa-envelope");
+                        messageCount.innerHTML = msgCount.unreadMessageCount;
+                    }
+                });
+    }
 
     </script>
 
