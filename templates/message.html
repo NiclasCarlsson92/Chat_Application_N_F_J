@@ -5,13 +5,62 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Sending a message to {{ receiver.name }}</h1>
-    <form action="{{ url_for("bp_user.message_post") }}" method="POST">
-        <input type="text" name="title" placeholder="Message title"/> <br />
-        <input type="hidden" name="user_id" value="{{ receiver.id }}">
-        <textarea name ="body" placeholder="Message Body"></textarea> <br />
-        <input class="send-button" type="submit" value="Send" />
+    <br/><br/>
+    <h1>Send an encrypted message to {{ receiver.name }}</h1>
+        <br/>
 
-    </form>
+        <button onclick="generate_key()" id="generate_key">Generate AES Key</button>
+        <br/>
+        <input id="key" placeholder="AES key" />
+        <br/><br/>
+
+        <div>
+            <label class="label" for="plain">Paste into Message Body</label>
+            <input id="plain" placeholder="Message" /> <br/><br/>
+        </div>
+
+        <input id="cipher" placeholder="<To be encrypted>" /> <br/>
+        <button onclick="encrypt_message()">Encrypt Message</button><br/>
+        <br/>
+
+        <form action="{{ url_for("bp_user.message_post") }}" method="POST">
+
+            <input type="hidden" name="user_id" value="{{ receiver.id }}">
+            <textarea name ="body" placeholder="Message Body"></textarea> <br />
+
+            <input class="send-button" type="submit" value="Send" />
+        </form>
+
+    {% block scripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
+{#        <script>#}
+{#            let key;#}
+{#            let encrypted_data;#}
+{##}
+{#            function generate_key() {#}
+{#                key = CryptoJS.lib.WordArray.random(16).toString();#}
+{#                document.getElementById("key").value = key;#}
+{#            }#}
+{##}
+{#            function encrypt_message() {#}
+{#                let message = document.getElementById("plain").value;#}
+{#                encrypted_data = CryptoJS.AES.encrypt(message, key);#}
+{#                document.getElementById("cipher").value = encrypted_data;#}
+{#            }#}
+{##}
+{#            function decrypt_message() {#}
+{#            let clearText = CryptoJS.AES.decrypt(encrypted_data, key);#}
+{#            document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);#}
+{#            }#}
+{#        </script>#}
+        <script>
+            function encrypt_message() {
+                let aesKey = key = CryptoJS.lib.WordArray.random(16).toString();
+
+            }
+        </script>
+    {% endblock %}
+
 
 {% endblock %}

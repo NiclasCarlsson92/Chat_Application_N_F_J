@@ -271,3 +271,7 @@ table{
     left: 400px;
     top: 25px;
 }
+
+.label {
+    display:block;
+}

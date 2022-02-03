@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+    <br/><br/>
     <h1> id ="main-heading">Mailbox</h1>
 
     <table>
@@ -29,6 +30,19 @@
         </tr>
     {% endfor %}
     </table>
+    <br/>
+    <button onclick="decrypt_message()">Decrypt Message</button>
+    <input id="clear" placeholder="Decrypted message">
+    <input id="clear" placeholder="Enter AES key">
 
+    {% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
 
+        function decrypt_message() {
+            let clearText = CryptoJS.AES.decrypt(encrypted_data, key);
+            document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);
+        }
+    </script>
+    {% endblock %}
 {% endblock %}
