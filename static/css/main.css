@@ -254,9 +254,22 @@ table{
 
 .mailbox_icon{
     position: absolute;
+    left: 400px;
+    top: 25px;
+  
+
+}
+
+.label {
+    display:block;
+}
+
+
     left: 380px;
     top: 12px;
 }
+
+
 
 .Dash_text1{
     color: lightskyblue;
@@ -264,4 +277,5 @@ table{
     border-radius: 10px;
     background-color: #073B4C;
 }
+
 
