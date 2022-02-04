@@ -3,10 +3,10 @@ from flask_login import current_user
 from controllers.user_controller import get_user_by_id
 
 
-def create_message(body, receiver_id, public_key):
+def create_message(body, receiver_id):
     from models import Message
     user = current_user
-    message = Message(body=body, sender_id=user.id, public_key=public_key)
+    message = Message(body=body, sender_id=user.id)
 
     receiver_id = int(receiver_id)
     receiver = get_user_by_id(receiver_id)

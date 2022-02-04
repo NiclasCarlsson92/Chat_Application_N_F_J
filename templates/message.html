@@ -10,67 +10,83 @@
     <h1>Send an encrypted message to {{ receiver.name }}</h1>
         <br/>
 
-        <form action="{{ url_for("bp_user.message_post") }}" method="POST">
             <label for="file_upload">Upload Public Key</label>
-            <input class="label_file" type="file" name ="file_upload" id="public_file"><br /><br />
+            <input type="file" name ="file_upload" enctype="multipart/form-data" id="public_file"><br /><br />
+            <button type="button" onclick="readPublicKey()">Load Key</button><span id="public_load"></span>
+            <br /><br />
 
-            <input type="hidden" name="user_id" value="{{ receiver.id }}">
-            <input type="hidden" name="user_public_key" value="{{ receiver.public_key }}">
-            <textarea name ="body" placeholder="Message Body"></textarea> <br />
+
+            <input type="hidden" id="user_id" value="{{ receiver.id }}">
+            <input type="hidden" id="user_public_key" value="{{ receiver.public_key }}">
+            <textarea name="body" id="body" placeholder="Message Body"></textarea> <br />
             <button class="encrypt" onclick="encryptMessage()" type="button">Encrypt Message</button>
-            <button class="send_dm" formmethod="post">Send</button>
-        </form>
+
+            <form action="{{ url_for("bp_user.message_post") }}" method="POST">
+                <button class="send_dm">Send</button>
+            </form>
 
     {% block scripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
 
         <script>
+
             function readPublicKey() {
-                let files = document.getElementById("file_upload");
+
+                let files = document.getElementById("public_file").files;
                 let file = files[0];
                 let reader = new FileReader();
 
-                reader.onload(function (event))
+                reader.onloadend = function (event) {
+                    publicKey = event.target.result;
+                    publicKey = publicKey.replace(/(\r\n|\n|\r)/gm, "");
+                    document.getElementById("public_load").innerHTML = " Public key loaded!";
+                    console.log(publicKey)
+
+
+                };
+                reader.readAsText(file);
             }
 
-
             function encryptMessage() {
+
+                //let output = "";
+
                 let aesKey = CryptoJS.lib.WordArray.random(16).toString();
+
                 let rsaEncrypt = new JSEncrypt();
-                let publicKey = document.getElementById("file_upload").value;
+                let publicKey = document.getElementById("public_file").value;
+
                 let message = {
-                    body: document.getElementById("body").innerHTML
+                    body: document.getElementById('body').innerHTML
                 }
-                console.log(message)
                 let msgJson = JSON.stringify(message);
+                //for(var i = 0; i < message.body.length; i++) {
+                //    output += message.body[i].charCodeAt(0).toString(2);
+                //}
+                //let msg64 = btoa(output);
                 let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);
 
                 rsaEncrypt.setPublicKey(publicKey);
 
                 let encryptedAESKey = rsaEncrypt.encrypt(aesKey);
+
                 let msgToSend = {
                     receiverId: document.getElementById("user_id").value,
                     encryptedMessage: encryptedMessage.toString(),
                     encryptedKey: encryptedAESKey.toString()
                 }
-
                 let jsonStrToSend = JSON.stringify(msgToSend);
-                fetch('http://127.0.0.1/message', {
+                console.log(aesKey);
+                fetch('/127.0.0.1:5000/message', {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
                     },
                     body: jsonStrToSend
                 });
-
             }
-
         </script>
     {% endblock %}
-
-
-
-
 
 {% endblock %}

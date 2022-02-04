@@ -39,4 +39,4 @@ class Message(db.Model):
     read = db.Column(db.BOOLEAN, default=False)
     sent_time = db.Column(db.DateTime, default=datetime.datetime.now())
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    public_key = db.Column(db.String(150))
+    public_key = db.Column(db.String(250))

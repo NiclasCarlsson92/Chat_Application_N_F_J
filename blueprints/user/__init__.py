@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import logout_user, login_required, current_user
 
@@ -33,11 +35,10 @@ def message_get(user_id):
 
 @bp_user.post("/message")
 def message_post():
-    # title = request.form["title"]
-    body = request.form["body"]
-    receiver_id = request.form["user_id"]
-    public_key = request.form['file_upload']
-    create_message(body, receiver_id, public_key)
+    msg_str = request
+    # msg = request.json
+    receiver_id = request.form['user_id']
+    create_message(msg_str, receiver_id)
     return redirect(url_for("bp_user.user_get"))
 
 
