@@ -26,13 +26,19 @@
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
 
         <script>
-            let publicKey;
+            function readPublicKey() {
+                let files = document.getElementById("file_upload");
+                let file = files[0];
+                let reader = new FileReader();
+
+                reader.onload(function (event))
+            }
 
 
             function encryptMessage() {
                 let aesKey = CryptoJS.lib.WordArray.random(16).toString();
                 let rsaEncrypt = new JSEncrypt();
-                let publicKey = document.getElementById("user_public_key").value;
+                let publicKey = document.getElementById("file_upload").value;
                 let message = {
                     body: document.getElementById("body").innerHTML
                 }
