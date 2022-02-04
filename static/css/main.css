@@ -265,11 +265,9 @@ table{
 }
 
 
-    left: 380px;
-    top: 12px;
+.label_file {
+    display:block;
 }
-
-
 
 .Dash_text1{
     color: lightskyblue;
@@ -277,5 +275,3 @@ table{
     border-radius: 10px;
     background-color: #073B4C;
 }
-
-
