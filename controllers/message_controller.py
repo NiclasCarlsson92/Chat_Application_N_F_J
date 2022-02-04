@@ -3,11 +3,10 @@ from flask_login import current_user
 from controllers.user_controller import get_user_by_id
 
 
-# Encrypt message
-def create_message(body, receiver_id):
+def create_message(body, receiver_id, public_key):
     from models import Message
     user = current_user
-    message = Message(body=body, sender_id=user.id)
+    message = Message(body=body, sender_id=user.id, public_key=public_key)
 
     receiver_id = int(receiver_id)
     receiver = get_user_by_id(receiver_id)
@@ -17,7 +16,6 @@ def create_message(body, receiver_id):
     db.session.commit()
 
 
-# Decrypt message
 def get_user_messages():
     return current_user.recv_messages
 

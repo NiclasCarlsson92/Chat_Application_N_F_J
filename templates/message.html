@@ -10,10 +10,14 @@
         <br/>
 
         <form action="{{ url_for("bp_user.message_post") }}" method="POST">
+            <label for="file_upload">Upload Public Key</label>
+            <input class="label_file" type="file" name ="file_upload" id="public_file"><br /><br />
+
             <input type="hidden" name="user_id" value="{{ receiver.id }}">
             <input type="hidden" name="user_public_key" value="{{ receiver.public_key }}">
             <textarea name ="body" placeholder="Message Body"></textarea> <br />
-            <button class="send-button" onclick="encrypt_message()" type="button" value="Send"></button>
+            <button class="encrypt" onclick="encryptMessage()" type="button">Encrypt Message</button>
+            <button class="send_dm" formmethod="post">Send</button>
         </form>
 
     {% block scripts %}
@@ -21,15 +25,17 @@
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
 
         <script>
+            let publicKey;
+
 
             function encryptMessage() {
-
-                let aesKey = key = CryptoJS.lib.WordArray.random(16).toString();
+                let aesKey = CryptoJS.lib.WordArray.random(16).toString();
                 let rsaEncrypt = new JSEncrypt();
                 let publicKey = document.getElementById("user_public_key").value;
                 let message = {
                     body: document.getElementById("body").innerHTML
                 }
+                console.log(message)
                 let msgJson = JSON.stringify(message);
                 let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);
 
@@ -37,7 +43,7 @@
 
                 let encryptedAESKey = rsaEncrypt.encrypt(aesKey);
                 let msgToSend = {
-                    receiverId: document.getElementById("user-id").value,
+                    receiverId: document.getElementById("user_id").value,
                     encryptedMessage: encryptedMessage.toString(),
                     encryptedKey: encryptedAESKey.toString()
                 }

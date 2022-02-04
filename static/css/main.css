@@ -275,3 +275,7 @@ table{
 .label {
     display:block;
 }
+
+.label_file {
+    display:block;
+}
