@@ -1,6 +1,5 @@
-import json
 
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify, make_response
 from flask_login import logout_user, login_required, current_user
 
 from controllers.message_controller import create_message, get_user_messages
@@ -33,13 +32,13 @@ def message_get(user_id):
     return render_template("message.html", receiver=receiver)
 
 
-@bp_user.post("/message")
-def message_post():
-    msg_str = request
-    # msg = request.json
-    receiver_id = request.form['user_id']
-    create_message(msg_str, receiver_id)
-    return redirect(url_for("bp_user.user_get"))
+@bp_user.post("/message/<user_id>")
+def message_post(user_id):
+    user_id = int(user_id)
+    receiver = get_user_by_id(user_id)
+    req = request.get_json()
+    create_message(req, receiver)
+    return redirect(url_for('bp_user.user_get', receiver=receiver, user_id=user_id))
 
 
 @bp_user.get("/mailbox")
