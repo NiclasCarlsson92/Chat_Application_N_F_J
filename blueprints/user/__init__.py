@@ -32,7 +32,7 @@ def message_get(user_id):
     return render_template("message.html", receiver=receiver)
 
 
-@bp_user.post("/message/<user_id>")
+@bp_user.post("/message")
 def message_post(user_id):
     user_id = int(user_id)
     receiver = get_user_by_id(user_id)

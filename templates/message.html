@@ -21,9 +21,9 @@
             <textarea name="body" id="body" placeholder="Message Body"></textarea> <br />
             <button class="encrypt" onclick="encryptMessage()" type="button">Encrypt Message</button>
 
-        <form action="{{ url_for("bp_user.message_post") }}" method="POST">
-                <button class="send_dm" onclick="send_data()">Send</button>
-        </form>
+{#        <form action="{{ url_for("bp_user.message_post") }}{{ user_id }}" method="POST">#}
+            <button class="send_dm" onclick="send_data()">Send</button>
+{#        </form>#}
 
     {% block scripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
@@ -75,30 +75,24 @@
 
                 let jsonStrToSend = JSON.stringify(msgToSend);
                 console.log(jsonStrToSend)
-                {#fetch('/http://127.0.0.1:5000/message', {#}
-                {#    method: "POST",#}
-                {#    headers: {#}
-                {#        "Content-type": "application/json"#}
-                {#    },#}
-                {#    body: jsonStrToSend#}
             }
 
             function send_data() {
 
-                let rec_id = msgToSend.receiverId;
-                let enc_msg = msgToSend.encryptedMessage;
-                let enc_key = msgToSend.encryptedKey;
+                {#let rec_id = msgToSend.receiverId;#}
+                {#let enc_msg = msgToSend.encryptedMessage;#}
+                {#let enc_key = msgToSend.encryptedKey;#}
+                {##}
+                {#let full_msg = {#}
+                {#    rec_id: rec_id.value,#}
+                {#    enc_msg: enc_msg.value,#}
+                {#    enc_key: enc_key.value#}
+                {##}
 
-                let full_msg = {
-                    rec_id: rec_id.value,
-                    enc_msg: enc_msg.value,
-                    enc_key: enc_key.value
-                };
-
-                fetch('${127.0.0.1:5000}/message', {
-                    method: "POST",
+                fetch('127.0.0.1:5000', {
+                    method: "GET",
                     credentials: "include",
-                    body: JSON.stringify(full_msg),
+                    body: JSON.stringify(msgToSend),
                     cache: "no-cache",
                     headers: new Headers ({
                         "content-type": "application/json"
