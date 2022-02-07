@@ -35,22 +35,22 @@
     {% endfor %}
     </table>
     <br/>
+    <input id="cipher" placeholder="Encrypted Message"><br />
+    <input id="key" placeholder="Enter AES key"><br />
+    <input id="clear" placeholder="Decrypted Message"><br />
     <button onclick="decrypt()">Decrypt Message</button>
-    <input id="cipher" placeholder="Encrypted Message">
-    <input id="key" placeholder="Enter AES key">
-    <input id="clear" placeholder="Decrypted Message">
     <br /> <br />
     <br /> <br />
+    <h2 class="upload-private-key">Upload private key for decryption</h2>
     <textarea id="encrypted" placeholder="Enter RSA Message"></textarea>
-    <br /> <br />
-    <p>Upload private key</p>
+    <br />
     <input type="file" id="priv-file" enctype="multipart/form-data" />
     <button onclick="readPrivateKey()">Read Private Key</button><span id="priv-loaded"></span>
 
     <br /> <br />
     <button onclick="rsaDecrypt()">Decrypt the RSA key</button>
 
-    <p id="decrypted"></p>
+    <p class="decrypted-string" id="decrypted"></p>
 
     {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>

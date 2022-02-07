@@ -190,7 +190,7 @@
 }
 
 table {
-    width: 25%;
+    width: auto;
     background: antiquewhite;
 }
 
@@ -278,4 +278,11 @@ table{
     font-size: 40px;
     border-radius: 10px;
     background-color: #073B4C;
+}
+.decrypted-string {
+    color: white;
+}
+
+.upload-private-key {
+    color: white;
 }

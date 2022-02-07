@@ -124,6 +124,20 @@
                 reader.readAsText(file);
 
             }
+            function readPublicKey() {
+                let files = document.getElementById("pub-file").files;
+                let file = files[0];
+                let reader = new FileReader();
+
+                reader.onloadend = function (event) {
+                    publicKey = event.target.result;
+                    publicKey = publicKey.replace(/(\r\n|\n|\r)/gm, "");
+                    document.getElementById("pub-loaded").innerHTML = "public key loaded";
+                };
+
+                reader.readAsText(file);
+
+            }
 
             function rsaEncrypt() {
                 let plainText = document.getElementById("AES-key").value;
