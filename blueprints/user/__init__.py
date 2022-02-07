@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify, make_response
 from flask_login import logout_user, login_required, current_user
 
 from controllers.message_controller import create_message, get_user_messages
@@ -32,13 +33,12 @@ def message_get(user_id):
 
 
 @bp_user.post("/message")
-def message_post():
-    # title = request.form["title"]
-    body = request.form["body"]
-    receiver_id = request.form["user_id"]
-    public_key = request.form['file_upload']
-    create_message(body, receiver_id, public_key)
-    return redirect(url_for("bp_user.user_get"))
+def message_post(user_id):
+    user_id = int(user_id)
+    receiver = get_user_by_id(user_id)
+    req = request.get_json()
+    create_message(req, receiver)
+    return redirect(url_for('bp_user.user_get', receiver=receiver, user_id=user_id))
 
 
 @bp_user.get("/mailbox")

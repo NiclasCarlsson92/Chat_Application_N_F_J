@@ -10,6 +10,8 @@
     <h1>Send an encrypted message to {{ receiver.name }}</h1>
         <br/>
 
+
+
         <form action="{{ url_for("bp_user.message_post") }}" method="POST">
             <input class="label_file_upload" type="file" name ="file_upload" id="public_file" enctype="multipart/form-data">
             <input type="hidden" name="user_id" id="user_id" value="{{ receiver.id }}">
@@ -59,8 +61,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
         <script>
-            let key;
-            let encrypted;
 
 
             function generateKey() {
@@ -83,20 +83,33 @@
             let publicKey;
             let privateKey;
 
-            function readPublicKey() {
-                let files = document.getElementById("pub-file").files;
-                let file = files[0];
-                let reader = new FileReader();
+            function encryptMessage() {
 
-                reader.onloadend = function (event) {
-                    publicKey = event.target.result;
-                    publicKey = publicKey.replace(/(\r\n|\n|\r)/gm, "");
-                    document.getElementById("pub-loaded").innerHTML = "public key loaded";
-                };
+                let aesKey = CryptoJS.lib.WordArray.random(16).toString();
 
-                reader.readAsText(file);
+                let rsaEncrypt = new JSEncrypt();
+                let publicKey = document.getElementById("public_file").value;
+
+                let message = {
+                    body: document.getElementById('body').value
+                }
+                let msgJson = JSON.stringify(message);
+                console.log(msgJson)
+                let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);
+                rsaEncrypt.setPublicKey(publicKey);
+                console.log(publicKey)
+
+                let encryptedAESKey = rsaEncrypt.encrypt(aesKey);
+
+                let msgToSend = {
+                    receiverId: document.getElementById("user_id").value,
+                    encryptedMessage: encryptedMessage.toString(),
+                    encryptedKey: encryptedAESKey.toString()
+                }
+
+                let jsonStrToSend = JSON.stringify(msgToSend);
+                console.log(jsonStrToSend)
             }
-
             function readPrivateKey() {
                 let files = document.getElementById("priv-file").files;
                 let file = files[0];
@@ -129,55 +142,6 @@
             }
 
         </script>
-{#        <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>#}
-{##}
-{#        <script>#}
-            {#function readPublicKey() {#}
-            {#    let files = document.getElementById("file_upload");#}
-            {#    let file = files[0];#}
-            {#    let reader = new FileReader();#}
-            {##}
-            {#    reader.onload(function (event))#}
-            {#
-{#            }  #}
-{##}
-{##}
-            {#function encryptMessage() {#}
-            {#    let aesKey = CryptoJS.lib.WordArray.random(16).toString();#}
-            {#    let rsaEncrypt = new JSEncrypt();#}
-            {#    let publicKey = document.getElementById("file_upload").value;#}
-            {#    let message = {#}
-            {#        body: document.getElementById("body").innerHTML#}
-            {#    }#}
-            {#    console.log(message)#}
-            {#    let msgJson = JSON.stringify(message);#}
-            {#    let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);#}
-            {##}
-            {#    rsaEncrypt.setPublicKey(publicKey);#}
-            {##}
-            {#    let encryptedAESKey = rsaEncrypt.encrypt(aesKey);#}
-            {#    let msgToSend = {#}
-            {#        receiverId: document.getElementById("user_id").value,#}
-            {#        encryptedMessage: encryptedMessage.toString(),#}
-            {#        encryptedKey: encryptedAESKey.toString()#}
-            {#    }#}
-                {#
-{#                let jsonStrToSend = JSON.stringify(msgToSend);#}
-{#                fetch('http://127.0.0.1/message', {#}
-{#                    method: "POST",#}
-{#                    headers: {#}
-{#                        "Content-type": "application/json"#}
-{#                    },#}
-{#                    body: jsonStrToSend#}
-{#                });#}
-{##}
-{#            }#}
-{# #}
-{#        </script>#}
     {% endblock %}
-
-
-
-
 
 {% endblock %}

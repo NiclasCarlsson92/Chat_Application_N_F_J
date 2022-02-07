@@ -269,6 +269,10 @@ table{
     display:block;
 }
 
+.label_read {
+    display: block;
+}
+
 .Dash_text1{
     color: lightskyblue;
     font-size: 40px;
