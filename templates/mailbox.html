@@ -37,11 +37,12 @@
     <br/>
     <input id="cipher" placeholder="Encrypted Message"><br />
     <input id="key" placeholder="Enter AES key"><br />
-    <input id="clear" placeholder="Decrypted Message"><br />
-    <button onclick="decrypt()">Decrypt Message</button>
+    <button onclick="decrypt()">Decrypt Message</button><br /><br />
+    <h3 class="decrypted-message">Decrypted message:</h3>
+    <input id="clear">
     <br /> <br />
     <br /> <br />
-    <h2 class="upload-private-key">Upload private key for decryption</h2>
+    <h2 class="upload-private-key">Decrypt RSA-String</h2>
     <textarea id="encrypted" placeholder="Enter RSA Message"></textarea>
     <br />
     <input type="file" id="priv-file" enctype="multipart/form-data" />
@@ -55,7 +56,9 @@
     {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
+
     <script>
+
         function decrypt(){
             key = document.getElementById("key").value;
             encrypted = document.getElementById("cipher").value;
@@ -72,7 +75,7 @@
             reader.onloadend = function (event) {
                 privateKey = event.target.result;
                 privateKey = privateKey.replace(/(\r\n|\n|\r)/gm, "");
-                document.getElementById("priv-loaded").innerHTML = "private key loaded";
+                document.getElementById("priv-loaded").innerHTML = " Private key loaded!";
             };
 
             reader.readAsText(file);
@@ -86,15 +89,6 @@
             let plainText = rsaEncrypt.decrypt(cipher);
             document.getElementById("decrypted").innerHTML = plainText;
         }
-
-        ss
-
-        {#function decrypt_message() {#}
-        {#    let clearText = CryptoJS.AES.decrypt(encrypted_data, key);#}
-        {#    document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);#}
-        {#
-        }
-        #}
     </script>
     {% endblock %}
 {% endblock %}

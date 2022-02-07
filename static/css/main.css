@@ -286,3 +286,7 @@ table{
 .upload-private-key {
     color: white;
 }
+
+.decrypted-message {
+    color: white;
+}

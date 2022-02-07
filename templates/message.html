@@ -47,15 +47,6 @@
         <h3>Encrypted value</h3>
         <p id="encrypted"></p>
 
-        <br /> <br />
-        <p>Upload private key</p>
-        <input type="file" id="priv-file" enctype="multipart/form-data" />
-        <button onclick="readPrivateKey()">Read Private Key</button><span id="priv-loaded"></span>
-
-        <br /> <br />
-        <button onclick="rsaDecrypt()">Decrypt the message</button>
-        <p id="decrypted"></p>
-
 
     {% block scripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
