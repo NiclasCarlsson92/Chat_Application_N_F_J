@@ -93,20 +93,20 @@ def main():
     # aes_key, aes_cipher, aes_nonce, aes_tag = aes_encrypt('This is a secret message')
     # message = aes_decrypt(aes_key, aes_cipher, aes_nonce, aes_tag)
     # print(message)
-    generate_rsa_keys('alice')
+    generate_rsa_keys('b')
     # rsa_cipher = rsa_encrypt('niclas_public', 'Oi oi mate')
     # message = rsa_decrypt(rsa_cipher, 'niclas_private')
     # print(message)
 
-    # Sender Code
-    message = input('Message to encrypt: ')
-    recipient_key_name = input('Public key name of recipient: ')
-    encrypted_data = encrypt_message(message, recipient_key_name)
-
-    # Receiver Code
-    private_key = input('Private key name to be used for encryption: ')
-    plain_text_message = decrypt_message(private_key, encrypted_data)
-    print(plain_text_message)
+    # # Sender Code
+    # message = input('Message to encrypt: ')
+    # recipient_key_name = input('Public key name of recipient: ')
+    # encrypted_data = encrypt_message(message, recipient_key_name)
+    #
+    # # Receiver Code
+    # private_key = input('Private key name to be used for encryption: ')
+    # plain_text_message = decrypt_message(private_key, encrypted_data)
+    # print(plain_text_message)
 
 
 if __name__ == '__main__':
