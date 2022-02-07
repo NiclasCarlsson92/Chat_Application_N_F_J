@@ -35,18 +35,65 @@
     {% endfor %}
     </table>
     <br/>
-    <button onclick="decrypt_message()">Decrypt Message</button>
-    <input id="clear" placeholder="Decrypted message">
-    <input id="clear" placeholder="Enter AES key">
+    <button onclick="decrypt()">Decrypt Message</button>
+    <input id="cipher" placeholder="Encrypted Message">
+    <input id="key" placeholder="Enter AES key">
+    <input id="clear" placeholder="Decrypted Message">
+    <br /> <br />
+    <br /> <br />
+    <textarea id="encrypted" placeholder="Enter RSA Message"></textarea>
+    <br /> <br />
+    <p>Upload private key</p>
+    <input type="file" id="priv-file" enctype="multipart/form-data" />
+    <button onclick="readPrivateKey()">Read Private Key</button><span id="priv-loaded"></span>
+
+    <br /> <br />
+    <button onclick="rsaDecrypt()">Decrypt the RSA key</button>
+
+    <p id="decrypted"></p>
 
     {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
-
-        function decrypt_message() {
-            let clearText = CryptoJS.AES.decrypt(encrypted_data, key);
+        function decrypt(){
+            key = document.getElementById("key").value;
+            encrypted = document.getElementById("cipher").value;
+            let clearText = CryptoJS.AES.decrypt(encrypted, key);
             document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);
         }
+
+        let privateKey;
+        function readPrivateKey() {
+            let files = document.getElementById("priv-file").files;
+            let file = files[0];
+            let reader = new FileReader();
+
+            reader.onloadend = function (event) {
+                privateKey = event.target.result;
+                privateKey = privateKey.replace(/(\r\n|\n|\r)/gm, "");
+                document.getElementById("priv-loaded").innerHTML = "private key loaded";
+            };
+
+            reader.readAsText(file);
+
+        }
+
+        function rsaDecrypt() {
+            let cipher = document.getElementById("encrypted").value;
+            let rsaEncrypt = new JSEncrypt();
+            rsaEncrypt.setPrivateKey(privateKey);
+            let plainText = rsaEncrypt.decrypt(cipher);
+            document.getElementById("decrypted").innerHTML = plainText;
+        }
+
+        ss
+
+        {#function decrypt_message() {#}
+        {#    let clearText = CryptoJS.AES.decrypt(encrypted_data, key);#}
+        {#    document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);#}
+        {#
+        }
+        #}
     </script>
     {% endblock %}
 {% endblock %}
