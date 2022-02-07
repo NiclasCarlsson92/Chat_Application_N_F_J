@@ -10,44 +10,78 @@
     <h1>Send an encrypted message to {{ receiver.name }}</h1>
         <br/>
 
-            <label for="file_upload">Upload Public Key</label>
-            <input type="file" name ="file_upload" enctype="multipart/form-data" id="public_file"><br /><br />
-            <button type="button" onclick="readPublicKey()">Load Key</button><span id="public_load"></span>
-            <br /><br />
 
 
-            <input type="hidden" id="user_id" value="{{ receiver.id }}">
-            <input type="hidden" id="user_public_key" value="{{ receiver.public_key }}">
-            <textarea name="body" id="body" placeholder="Message Body"></textarea> <br />
-            <button class="encrypt" onclick="encryptMessage()" type="button">Encrypt Message</button>
+        <form action="{{ url_for("bp_user.message_post") }}" method="POST">
+            <input class="label_file_upload" type="file" name ="file_upload" id="public_file" enctype="multipart/form-data">
+            <input type="hidden" name="user_id" id="user_id" value="{{ receiver.id }}">
+            <textarea name ="body" placeholder="Message Body"></textarea> <br />
+            <button class="send_dm" formmethod="post">Send</button>
+        </form>
 
-{#        <form action="{{ url_for("bp_user.message_post") }}{{ user_id }}" method="POST">#}
-            <button class="send_dm" onclick="send_data()">Send</button>
-{#        </form>#}
+        <input id="plain" placeholder="Message to Encrypt" /> <br />
+        <input id="key" placeholder="AES key (enter text or generate)" />
+        <button onclick="generateKey()">Generate AES Key</button>
+
+        <br />
+        <button onclick="encrypt()">Encrypt Message</button>
+        <input id="cipher" placeholder="Ciphertext" />
+
+        <br />
+        <button onclick="decrypt()">Decrypt Message</button>
+        <input id="clear" placeholder="Decrypted message" />
+
+        {# RSA part:#}
+        <br /> <br /> <br />
+        <input id="AES-key" placeholder="Enter AES Key"/>
+        <br /> <br />
+
+        <p>Upload public key</p>
+        <input type="file" id="pub-file" enctype="multipart/form-data" />
+        <button onclick="readPublicKey()">Read Public Key</button><span id="pub-loaded"></span>
+
+        <br /> <br />
+        <button onclick="rsaEncrypt()">Encrypt the Message</button>
+
+        <br /> <br />
+        <h3>Encrypted value</h3>
+        <p id="encrypted"></p>
+
+        <br /> <br />
+        <p>Upload private key</p>
+        <input type="file" id="priv-file" enctype="multipart/form-data" />
+        <button onclick="readPrivateKey()">Read Private Key</button><span id="priv-loaded"></span>
+
+        <br /> <br />
+        <button onclick="rsaDecrypt()">Decrypt the message</button>
+        <p id="decrypted"></p>
+
 
     {% block scripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
-
         <script>
-            let msgToSend;
-
-            function readPublicKey() {
-
-                let files = document.getElementById("public_file").files;
-                let file = files[0];
-                let reader = new FileReader();
-
-                reader.onloadend = function (event) {
-                    publicKey = event.target.result;
-                    publicKey = publicKey.replace(/(\r\n|\n|\r)/gm, "");
-                    document.getElementById("public_load").innerHTML = " Public key loaded!";
-                    console.log(publicKey)
 
 
-                };
-                reader.readAsText(file);
+            function generateKey() {
+                key = CryptoJS.lib.WordArray.random(16).toString();
+                document.getElementById("key").value = key;
             }
+
+            function encrypt(){
+                let message = document.getElementById("plain").value;
+                encrypted = CryptoJS.AES.encrypt(message, key);
+                document.getElementById("cipher").value = encrypted;
+            }
+
+            function decrypt(){
+
+                let clearText = CryptoJS.AES.decrypt(encrypted, key);
+                document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);
+            }
+
+            let publicKey;
+            let privateKey;
 
             function encryptMessage() {
 
@@ -76,40 +110,35 @@
                 let jsonStrToSend = JSON.stringify(msgToSend);
                 console.log(jsonStrToSend)
             }
+            function readPrivateKey() {
+                let files = document.getElementById("priv-file").files;
+                let file = files[0];
+                let reader = new FileReader();
 
-            function send_data() {
+                reader.onloadend = function (event) {
+                    privateKey = event.target.result;
+                    privateKey = privateKey.replace(/(\r\n|\n|\r)/gm, "");
+                    document.getElementById("priv-loaded").innerHTML = "private key loaded";
+                };
 
-                {#let rec_id = msgToSend.receiverId;#}
-                {#let enc_msg = msgToSend.encryptedMessage;#}
-                {#let enc_key = msgToSend.encryptedKey;#}
-                {##}
-                {#let full_msg = {#}
-                {#    rec_id: rec_id.value,#}
-                {#    enc_msg: enc_msg.value,#}
-                {#    enc_key: enc_key.value#}
-                {##}
+                reader.readAsText(file);
 
-                fetch('127.0.0.1:5000', {
-                    method: "GET",
-                    credentials: "include",
-                    body: JSON.stringify(msgToSend),
-                    cache: "no-cache",
-                    headers: new Headers ({
-                        "content-type": "application/json"
-                    })
-                })
-                .then (function(response) {
-                    if (response.status !== 200) {
-                        console.log(`Looks like there was a problem. Status code: ${response.status}`);
-                        return;
-                    }
-                    response.json().then(function(data) {
-                        console.log(data);
-                    });
-                })
-                .catch(function(error) {
-                    console.log("Fetch error: " + error);
-                });
+            }
+
+            function rsaEncrypt() {
+                let plainText = document.getElementById("AES-key").value;
+                let rsaEncrypt = new JSEncrypt();
+                rsaEncrypt.setPublicKey(publicKey);
+                let encrypted = rsaEncrypt.encrypt(plainText);
+                document.getElementById("encrypted").innerHTML = encrypted;
+            }
+
+            function rsaDecrypt() {
+                let cipher = document.getElementById("encrypted").innerHTML;
+                let rsaEncrypt = new JSEncrypt();
+                rsaEncrypt.setPrivateKey(privateKey);
+                let plainText = rsaEncrypt.decrypt(cipher);
+                document.getElementById("decrypted").innerHTML = plainText;
             }
 
         </script>
