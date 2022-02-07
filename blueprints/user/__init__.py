@@ -33,12 +33,13 @@ def message_get(user_id):
 
 
 @bp_user.post("/message")
-def message_post(user_id):
-    user_id = int(user_id)
-    receiver = get_user_by_id(user_id)
-    req = request.get_json()
-    create_message(req, receiver)
-    return redirect(url_for('bp_user.user_get', receiver=receiver, user_id=user_id))
+def message_post():
+    # title = request.form["title"]
+    body = request.form["body"]
+    receiver_id = request.form["user_id"]
+    public_key = request.form['file_upload']
+    create_message(body, receiver_id, public_key)
+    return redirect(url_for("bp_user.user_get"))
 
 
 @bp_user.get("/mailbox")
