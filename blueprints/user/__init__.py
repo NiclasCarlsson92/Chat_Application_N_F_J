@@ -4,6 +4,8 @@ from flask_login import logout_user, login_required, current_user
 
 from controllers.message_controller import create_message, get_user_messages
 from controllers.user_controller import get_user_by_id
+import mqtt_publish
+
 
 bp_user = Blueprint('bp_user', __name__)
 
@@ -32,12 +34,14 @@ def message_get(user_id):
     return render_template("message.html", receiver=receiver)
 
 
-@bp_user.post("/message")
-def message_post():
+@bp_user.post("/message/<user_id>")
+def message_post(user_id):
     # title = request.form["title"]
     body = request.form["body"]
-    receiver_id = request.form["user_id"]
-    create_message(body, receiver_id)
+    # receiver_id = request.form["user_id"]  # FÖRÄNDRING
+    user_id = int(user_id)  # OBS NY
+    create_message(body, user_id)  # OBS FÖRÄNDRING
+    mqtt_publish.publish(user_id, current_user.email)
     return redirect(url_for("bp_user.user_get"))
 
 

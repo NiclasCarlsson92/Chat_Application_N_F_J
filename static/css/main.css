@@ -290,3 +290,9 @@ table{
 .decrypted-message {
     color: white;
 }
+.read_private {
+    color: white;
+}
+.read_public {
+    color: white;
+}
