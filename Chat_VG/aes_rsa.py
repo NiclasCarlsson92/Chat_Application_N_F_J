@@ -9,19 +9,19 @@ def gen_keys(key_name, passphrase, key_size):
     public_key = key.publickey().export_key()
     private_key = key.export_key(passphrase=passphrase, pkcs=8, protection='scryptAndAES128-CBC')
 
-    with open(f'{key_name}_pub.key', 'wb') as pub_file:
+    with open(f'./rsa_keys_chat/{key_name}_pub.key', 'wb') as pub_file:
         pub_file.write(public_key)
 
-    with open(f'{key_name}_priv.key', 'wb') as priv_file:
+    with open(f'./rsa_keys_chat/{key_name}_priv.key', 'wb') as priv_file:
         priv_file.write(private_key)
 
 
 def read_public_key(key_name):
-    return RSA.importKey(open(f'{key_name}_pub.key', 'r').read())
+    return RSA.importKey(open(f'./rsa_keys_chat/{key_name}_pub.key', 'r').read())
 
 
 def read_private_key(key_name, passphrase):
-    return RSA.importKey(open(f'{key_name}_priv.key', 'r').read(), passphrase)
+    return RSA.importKey(open(f'./rsa_keys_chat/{key_name}_priv.key', 'r').read(), passphrase)
 
 
 def generate_keys():
@@ -48,7 +48,7 @@ def encrypt_message():
     message = input('Enter message to encrypt: ').encode('utf-8')
     while True:
         key_name = input('Enter name of recipient: ')
-        if not os.path.exists(f'{key_name}_pub.key'):
+        if not os.path.exists(f'./rsa_keys_chat/{key_name}_pub.key'):
             print(f'Can\'t find key file named {key_name}_pub.key. Please try again.')
             continue
         break
@@ -57,14 +57,11 @@ def encrypt_message():
 
     encrypted_file_name = input('Enter file name for encrypted message: ')
 
-    # Create a session key that will be used with AES to encrypt the message
     session_key = get_random_bytes(16)
 
-    # Encrypt the session key using RSA
     rsa_cipher = PKCS1_OAEP.new(public_key)
     encrypted_session_key = rsa_cipher.encrypt(session_key)
 
-    # Encrypt the message using AES and the session key
     aes_cipher = AES.new(session_key, AES.MODE_EAX)
     cipher_text, tag = aes_cipher.encrypt_and_digest(message)
 
@@ -89,11 +86,9 @@ def decrypt_message():
     with open(f'{file_name}.enc', 'rb') as in_file:
         enc_session_key, nonce, tag, cipher_text = [in_file.read(b) for b in (private_key.size_in_bytes(), 16, 16, -1)]
 
-    # Decrypt the session key
     rsa_cipher = PKCS1_OAEP.new(private_key)
     session_key = rsa_cipher.decrypt(enc_session_key)
 
-    # Decrypt the message
     aes_cipher = AES.new(session_key, AES.MODE_EAX, nonce)
     message = aes_cipher.decrypt_and_verify(cipher_text, tag)
     print("The decrypted message is:")
