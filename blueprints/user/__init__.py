@@ -1,11 +1,10 @@
 
-from flask import Blueprint, render_template, redirect, url_for, request, jsonify, make_response
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import logout_user, login_required, current_user
 
 from controllers.message_controller import create_message, get_user_messages
 from controllers.user_controller import get_user_by_id
-import mqtt_publish
-
+from MQTT_VG import mqtt_publish
 
 bp_user = Blueprint('bp_user', __name__)
 

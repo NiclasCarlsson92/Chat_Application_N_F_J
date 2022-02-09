@@ -11,7 +11,7 @@ PORT = 10006
 
 
 def read_private_key(key_name, passphrase):
-    return RSA.importKey(open(f'./keys/{key_name}_priv.key', 'r').read(), passphrase)
+    return RSA.importKey(open(f'./rsa_keys_chat/{key_name}_priv.key', 'r').read(), passphrase)
 
 
 def main():
@@ -21,7 +21,6 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((socket.gethostname(), PORT))
 
-    # Handshake
     client_socket.send(username.encode('utf-8'))
     confirmation_bytes = client_socket.recv(1024)
 
@@ -31,9 +30,9 @@ def main():
     signature = pkcs1_15.new(private_key).sign(hashed_bytes)
     client_socket.send(signature)
 
-    responce = client_socket.recv(1024).decode('utf-8')
-    if responce != "Welcome":
-        print(responce)
+    response = client_socket.recv(1024).decode('utf-8')
+    if response != "Welcome":
+        print(response)
         sys.exit()
     encrypted_session_key = client_socket.recv(1024)
 

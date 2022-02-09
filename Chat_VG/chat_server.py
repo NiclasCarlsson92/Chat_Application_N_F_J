@@ -1,6 +1,5 @@
 import socket
 import threading
-import random
 import base64
 from queue import Queue
 from Crypto.Cipher import PKCS1_OAEP, AES
@@ -17,7 +16,7 @@ queue = Queue()
 
 
 def read_public_key(key_name):
-    return RSA.importKey(open(f'./rsa_keys/{key_name}_pub.key', 'r').read())
+    return RSA.importKey(open(f'./rsa_keys_chat/{key_name}_pub.key', 'r').read())
 
 
 def broadcast():
