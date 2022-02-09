@@ -36,11 +36,9 @@ def message_get(user_id):
 
 @bp_user.post("/message/<user_id>")
 def message_post(user_id):
-    # title = request.form["title"]
     body = request.form["body"]
-    # receiver_id = request.form["user_id"]  # FÖRÄNDRING
-    user_id = int(user_id)  # OBS NY
-    create_message(body, user_id)  # OBS FÖRÄNDRING
+    user_id = int(user_id)
+    create_message(body, user_id)
     mqtt_publish.publish(user_id, current_user.email)
     return redirect(url_for("bp_user.user_get"))
 
