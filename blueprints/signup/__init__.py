@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user
 from passlib.hash import argon2
+from models import User
 
 bp_signup = Blueprint('bp_signup', __name__)
-
-from models import User
 
 
 @bp_signup.get('/signup')

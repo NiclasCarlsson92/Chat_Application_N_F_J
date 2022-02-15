@@ -7,11 +7,6 @@ from controllers import user_controller
 bp_api = Blueprint('bp_api', __name__)
 
 
-# /users
-# /users/2
-# /users/2/messages
-# /users/2/messages/3
-
 def authorize(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -39,10 +34,3 @@ def get_all_users():
         cleaned_users.append(u)
 
     return Response(json.dumps(cleaned_users), 200, content_type="application/json")
-
-
-@bp_api.get('/hepp')
-@authorize
-def hepp_get():
-    return 'hepp'
-
