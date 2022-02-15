@@ -6,12 +6,12 @@
 
 {% block content %}
 
-    <br/><br/>
+    <br /><br />
     <h1 class="send_dm_text">Send an encrypted message to {{ receiver.name }}</h1>
         <br/>
 
-        <button onclick="generateKey()">Generate AES Key</button> <br/>
-        <input id="key" placeholder="AES key" /><br/>
+        <button onclick="generateKey()">Generate AES Key</button><br />
+        <input id="key"/><br />
         <br/>
         <input id="plain" placeholder="Enter message" />
         <input id="cipher"/><br/>
@@ -21,18 +21,16 @@
         <form action="{{ url_for("bp_user.message_post", user_id = receiver.id) }}" method="POST">
             <input type="text" name="body" id="body" placeholder="Paste Encrypted Message"> <br />
             <input type="hidden" name="user_id" id="user_id" value="{{ receiver.id }}">
-            <input type="text" name="encrypted" id="encrypted" placeholder="RSA-generated String"><br/>
-            <button class="send_dm" formmethod="post">Send</button><br/>
+            <input type="text" name="encrypted" id="encrypted" placeholder="RSA-generated String"><br />
+            <button class="send_dm" formmethod="post">Send</button><br />
         </form>
 
         <h3 class="upload_public_key">Upload public key</h3>
         <input type="file" id="pub-file" enctype="multipart/form-data" />
         <button onclick="readPublicKey()">Read Public Key</button><span class="read_public" id="pub-loaded"></span>
+        <br /><br />
 
-        <br /> <br />
         <button onclick="rsaEncrypt()">Encrypt</button>
-        <br/> <br/> <br/>
-        <br/> <br/>
 
 
 
@@ -40,9 +38,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
         <script src="{{ url_for('static', filename='js/rsa.js') }}"></script>
         <script>
+
             let key;
             let encrypted;
             let data;
+            let publicKey;
+            let privateKey;
 
             function generateKey() {
                 key = CryptoJS.lib.WordArray.random(16).toString();
@@ -61,36 +62,6 @@
                 document.getElementById("clear").value = clearText.toString(CryptoJS.enc.Utf8);
             }
 
-            let publicKey;
-            let privateKey;
-
-            function encryptMessage() {
-
-                let aesKey = CryptoJS.lib.WordArray.random(16).toString();
-
-                let rsaEncrypt = new JSEncrypt();
-                let publicKey = document.getElementById("public_file").value;
-
-                let message = {
-                    body: document.getElementById("body").value
-                }
-                let msgJson = JSON.stringify(message);
-
-                let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);
-                rsaEncrypt.setPublicKey(publicKey);
-
-
-                let encryptedAESKey = rsaEncrypt.encrypt(aesKey);
-
-                let msgToSend = {
-                    receiverId: document.getElementById("user_id").value,
-                    encryptedMessage: encryptedMessage.toString(),
-                    encryptedKey: encryptedAESKey.toString()
-                }
-
-                let jsonStrToSend = JSON.stringify(msgToSend);
-
-            }
             function readPrivateKey() {
                 let files = document.getElementById("priv-file").files;
                 let file = files[0];
@@ -101,10 +72,9 @@
                     privateKey = privateKey.replace(/(\r\n|\n|\r)/gm, "");
                     document.getElementById("priv-loaded").innerHTML = "private key loaded";
                 };
-
                 reader.readAsText(file);
-
             }
+
             function readPublicKey() {
                 let files = document.getElementById("pub-file").files;
                 let file = files[0];
