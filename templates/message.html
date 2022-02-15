@@ -7,45 +7,33 @@
 {% block content %}
 
     <br/><br/>
-    <h1>Send an encrypted message to {{ receiver.name }}</h1>
+    <h1 class="send_dm_text">Send an encrypted message to {{ receiver.name }}</h1>
         <br/>
 
-
+        <button onclick="generateKey()">Generate AES Key</button> <br/>
+        <input id="key" placeholder="AES key" /><br/>
+        <br/>
+        <input id="plain" placeholder="Enter message" />
+        <input id="cipher"/><br/>
+        <button onclick="encrypt()">Encrypt Message</button>
+        <br/><br/>
 
         <form action="{{ url_for("bp_user.message_post", user_id = receiver.id) }}" method="POST">
-            <input class="label_file_upload" type="file" name ="file_upload" id="public_file" enctype="multipart/form-data">
+            <input type="text" name="body" id="body" placeholder="Paste Encrypted Message"> <br />
             <input type="hidden" name="user_id" id="user_id" value="{{ receiver.id }}">
-            <textarea name ="body" placeholder="Message Body"></textarea> <br />
-            <button class="send_dm" formmethod="post">Send</button>
+            <input type="text" name="encrypted" id="encrypted" placeholder="RSA-generated String"><br/>
+            <button class="send_dm" formmethod="post">Send</button><br/>
         </form>
 
-        <input id="plain" placeholder="Message to Encrypt" /> <br />
-        <input id="key" placeholder="AES key (enter text or generate)" />
-        <button onclick="generateKey()">Generate AES Key</button>
-
-        <br />
-        <button onclick="encrypt()">Encrypt Message</button>
-        <input id="cipher" placeholder="Ciphertext" />
-
-        <br />
-        <button onclick="decrypt()">Decrypt Message</button>
-        <input id="clear" placeholder="Decrypted message" />
-
-        {# RSA part:#}
-        <br /> <br /> <br />
-        <input id="AES-key" placeholder="Enter AES Key"/>
-        <br /> <br />
-
-        <p>Upload public key</p>
+        <h3 class="upload_public_key">Upload public key</h3>
         <input type="file" id="pub-file" enctype="multipart/form-data" />
         <button onclick="readPublicKey()">Read Public Key</button><span class="read_public" id="pub-loaded"></span>
 
         <br /> <br />
-        <button onclick="rsaEncrypt()">Encrypt the Message</button>
+        <button onclick="rsaEncrypt()">Encrypt</button>
+        <br/> <br/> <br/>
+        <br/> <br/>
 
-        <br /> <br />
-        <h3>Encrypted value</h3>
-        <p id="encrypted"></p>
 
 
     {% block scripts %}
@@ -54,6 +42,7 @@
         <script>
             let key;
             let encrypted;
+            let data;
 
             function generateKey() {
                 key = CryptoJS.lib.WordArray.random(16).toString();
@@ -83,13 +72,13 @@
                 let publicKey = document.getElementById("public_file").value;
 
                 let message = {
-                    body: document.getElementById('body').value
+                    body: document.getElementById("body").value
                 }
                 let msgJson = JSON.stringify(message);
-                console.log(msgJson)
+
                 let encryptedMessage = CryptoJS.AES.encrypt(msgJson, aesKey);
                 rsaEncrypt.setPublicKey(publicKey);
-                console.log(publicKey)
+
 
                 let encryptedAESKey = rsaEncrypt.encrypt(aesKey);
 
@@ -100,7 +89,7 @@
                 }
 
                 let jsonStrToSend = JSON.stringify(msgToSend);
-                console.log(jsonStrToSend)
+
             }
             function readPrivateKey() {
                 let files = document.getElementById("priv-file").files;
@@ -132,19 +121,11 @@
             }
 
             function rsaEncrypt() {
-                let plainText = document.getElementById("AES-key").value;
+                let plainText = document.getElementById("key").value;
                 let rsaEncrypt = new JSEncrypt();
                 rsaEncrypt.setPublicKey(publicKey);
                 let encrypted = rsaEncrypt.encrypt(plainText);
-                document.getElementById("encrypted").innerHTML = encrypted;
-            }
-
-            function rsaDecrypt() {
-                let cipher = document.getElementById("encrypted").innerHTML;
-                let rsaEncrypt = new JSEncrypt();
-                rsaEncrypt.setPrivateKey(privateKey);
-                let plainText = rsaEncrypt.decrypt(cipher);
-                document.getElementById("decrypted").innerHTML = plainText;
+                document.getElementById("encrypted").value = encrypted;
             }
 
         </script>

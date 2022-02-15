@@ -40,3 +40,4 @@ class Message(db.Model):
     sent_time = db.Column(db.DateTime, default=datetime.datetime.now())
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     public_key = db.Column(db.String(250))
+    encrypted_data = db.Column(db.String(250))

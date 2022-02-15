@@ -226,7 +226,7 @@ tr:nth-child(even){
 }
 
 table{
-    width: 75%;
+    width: auto;
 }
 
 .sup{
@@ -275,7 +275,7 @@ table{
 
 .Dash_text1{
     color: lightskyblue;
-    font-size: 40px;
+    font-size: 20px;
     border-radius: 10px;
     background-color: #073B4C;
 }
@@ -294,5 +294,17 @@ table{
     color: white;
 }
 .read_public {
+    color: white;
+}
+.encrypted_value {
+    color: white;
+}
+.encrypted_message {
+    color: white;
+}
+.send_dm_text {
+    color: white;
+}
+.upload_public_key {
     color: white;
 }
