@@ -1,65 +1,63 @@
 import socket
 import threading
-import base64
-from queue import Queue
-from Crypto.Cipher import PKCS1_OAEP, AES
-from Crypto.PublicKey import RSA
-from Crypto.Hash import SHA256
-from Crypto.Signature import pkcs1_15
-from Crypto.Random import get_random_bytes
+import queue
+from chat_act_client import CLIENT_USERNAME
 
 hostname = socket.gethostname()
 HOST = socket.gethostbyname(hostname)
-PORT = 10006
+PORT = 10007
 connected_clients = []
-queue = Queue()
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+USERNAME = "HOST"
 
 
-def broadcast():
+def client_handler(client_socket, broadcast_queue, client_list):
     while True:
-        message, sender_socket = queue.get()
-        user = ''
-        for client_socket, username in connected_clients:
-            if client_socket == sender_socket:
-                user = username
-                break
+        try:
+            message = client_socket.recv(1024)
+            message = message.decode('utf-8')
+            print('CLIENT > ', message)
 
-        for client_socket, _ in connected_clients:
-            if client_socket != sender_socket:
-                message = user + '<=>' + message.decode('utf-8')
-                client_socket.send(message.encode('utf-8'))
-        queue.task_done()
+            message_dict = {
+                'sender_socket': client_socket,
+                'message': message.encode('utf-8')
+            }
+            broadcast_queue.put(message_dict)
+        except ConnectionResetError:
+            print('A client left the chat')
+            client_list.remove(client_socket)
+            break
 
 
-def sender():
+def broadcast(client_list, broadcast_queue):
     while True:
-        message = input('> ')
-        server_socket.send(message.encode('utf-8'))
-
-
-def client_recv(client_socket):
-    while True:
-        data = client_socket.recv(1024)
-        queue.put((data, client_socket))
+        message_dict = broadcast_queue.get()
+        for client in client_list:
+            if client != message_dict['sender_socket']:
+                client.send(message_dict['message'])
 
 
 def main():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
     server_socket.listen(5)
+    client_list = []
+    broadcast_queue = queue.Queue()
 
-    broadcast_thread = threading.Thread(target=broadcast)
+    broadcast_thread = threading.Thread(target=broadcast, args=(client_list, broadcast_queue))
     broadcast_thread.start()
-    username = input('Enter your username: ')
-    print('Welcome', username)
-    print(f'Chat Server active @{HOST}')
+    print('Welcome', USERNAME)
+    print(f'Chat Server @{HOST}')
     print('Waiting for connections...')
-    # "Type something, broadcast this to client"
+
     while True:
         client_socket, client_address = server_socket.accept()
         print(f'Got a connection from {client_address}')
-        recv_thread = threading.Thread(target=client_recv, args=(client_socket,))
-        recv_thread.start()
+        client_thread = threading.Thread(target=client_handler,
+                                         args=(client_socket, broadcast_queue, client_list))
+        client_list.append(client_socket)
+        client_thread.start()
+        client_thread.join()
+
 
 
 if __name__ == '__main__':
