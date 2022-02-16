@@ -1,10 +1,9 @@
-
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import logout_user, login_required, current_user
-
 from controllers.message_controller import create_message, get_user_messages
 from controllers.user_controller import get_user_by_id
 from MQTT_VG import mqtt_publish
+
 
 bp_user = Blueprint('bp_user', __name__)
 
@@ -36,8 +35,8 @@ def message_get(user_id):
 @bp_user.post("/message/<user_id>")
 def message_post(user_id):
     body = request.form["body"]
-    user_id = int(user_id)
-    create_message(body, user_id)
+    encrypted_data = request.form["encrypted"]
+    create_message(body, user_id, encrypted_data)
     mqtt_publish.publish(user_id, current_user.email)
     return redirect(url_for("bp_user.user_get"))
 
