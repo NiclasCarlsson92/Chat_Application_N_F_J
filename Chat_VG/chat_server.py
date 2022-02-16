@@ -49,11 +49,10 @@ def handshake(client_socket):
     confirmation_bytes = get_random_bytes(16)
     username = client_socket.recv(1024).decode('utf-8')
     hashed_bytes = SHA256.new(confirmation_bytes)
-
     client_socket.send(confirmation_bytes)
     confirmation_data = client_socket.recv(1024)
-
     public_key = read_public_key(username)
+
     try:
         pkcs1_15.new(public_key).verify(hashed_bytes, confirmation_data)
         rsa_cipher = PKCS1_OAEP.new(public_key)
@@ -62,12 +61,15 @@ def handshake(client_socket):
         client_socket.send(encrypted_session_key)
         connected_clients.append((client_socket, username))
         return True
+
     except (ValueError, TypeError):
         client_socket.send('Identity could not be confirmed. Connection terminated.'.encode('utf-8'))
+
     return False
 
 
 def client_recv(client_socket):
+
     while True:
         data = client_socket.recv(1024)
         nonce, tag, cipher_text = data.decode('utf-8').split(',')
