@@ -7,6 +7,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
 
+
 PORT = 10006
 
 
@@ -15,6 +16,7 @@ def read_private_key(key_name, passphrase):
 
 
 def main():
+
     username = input('Please enter your username: ')
     passphrase = input("Enter your passphrase: ")
 
