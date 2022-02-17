@@ -43,7 +43,7 @@ def main():
     def send():
         while True:
             aes_cipher = AES.new(session_key, AES.MODE_EAX)
-            message = input('> ')
+            message = input('')
             cipher_text, tag = aes_cipher.encrypt_and_digest(message.encode('utf-8'))
             nonce = base64.b64encode(aes_cipher.nonce).decode('utf-8')
             tag = base64.b64encode(tag).decode('utf-8')
