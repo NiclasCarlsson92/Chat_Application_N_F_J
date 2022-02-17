@@ -93,7 +93,7 @@ def main():
     # aes_key, aes_cipher, aes_nonce, aes_tag = aes_encrypt('This is a secret message')
     # message = aes_decrypt(aes_key, aes_cipher, aes_nonce, aes_tag)
     # print(message)
-    generate_rsa_keys('b')
+    generate_rsa_keys('niclas')
     # rsa_cipher = rsa_encrypt('niclas_public', 'Oi oi mate')
     # message = rsa_decrypt(rsa_cipher, 'niclas_private')
     # print(message)
