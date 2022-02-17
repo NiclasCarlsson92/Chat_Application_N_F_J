@@ -23,12 +23,13 @@ def main():
     server_socket.listen()
     broadcast_thread = threading.Thread(target=broadcast)
     broadcast_thread.start()
-
     print(f'Chat Server hosted at: {HOST}:{PORT}')
     print('Waiting for connections...')
 
     while True:
         client_socket, client_address = server_socket.accept()
+        server_thread = threading.Thread(target=server_send, args=(client_socket,))
+        server_thread.start()
         print(f'Got a connection from {client_address}')
         if handshake(client_socket):
             print(f'HANDSHAKE with {client_address} OK!')
@@ -37,8 +38,11 @@ def main():
         else:
             print(f'Invalid handshake with {client_address}.')
 
+
+def server_send(client_socket):
+    while True:
         aes_cipher = AES.new(SESSION_KEY, AES.MODE_EAX)
-        message = input('> ')
+        message = input('')
         cipher_text, tag = aes_cipher.encrypt_and_digest(message.encode('utf-8'))
         nonce = base64.b64encode(aes_cipher.nonce).decode('utf-8')
         tag = base64.b64encode(tag).decode('utf-8')
@@ -65,7 +69,6 @@ def client_handler(client_socket):
 
         clear_text = clear_text.decode('utf-8')
         print(f'{username}:{clear_text}')
-
 
 
 def broadcast():
